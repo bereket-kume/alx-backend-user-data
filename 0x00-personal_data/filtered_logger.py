@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 """
-Filter_datum
+Module for handling personal data
 """
+from typing import List
 import re
 
 
-def filter_datum(fields, redaction, message, seprator):
+def filter_datum(
+        fields: List[str], redaction: str,
+        message: str, seprator: str
+) -> str:
     """
     function returns the log message obfuscated
     """
