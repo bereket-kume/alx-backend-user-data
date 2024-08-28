@@ -9,7 +9,7 @@ def filter_datum(fields, redaction, message, seprator):
     """
     function returns the log message obfuscated
     """
-    pattern = '|'.join([f"{fields}=.*?(?={seprator}|$)" for field in fields])
-    return re.sub(
-        pattern, lambda m: m.group(0).split('=')[0] + f'={redaction}', message
-    )
+    for i in fields:
+        message = re.sub(f'{i}=.*?{seprator}',
+                         f'{i}={redaction}{seprator}', message)
+    return message
