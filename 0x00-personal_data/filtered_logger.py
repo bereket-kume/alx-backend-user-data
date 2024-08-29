@@ -27,7 +27,7 @@ class RedactingFormatter(logging.Formatter):
                             self.REDACTION, original_message, self.SEPARATOR)
 
 
-PII_FIELDS = ('name', 'email', 'phone_number', 'ssn', 'password')
+PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
 
 
 def filter_datum(
@@ -64,3 +64,23 @@ def get_db() -> MySQLConnection:
         database=os.getenv("PERSONAL_DATA_DB_NAME")
     )
     return db_connect
+
+
+def main():
+    connection = get_db()
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM users")
+    results = cursor.fetchall()
+    logger = get_logger()
+
+    for row in results:
+        message = f"name={row[0]}; email={row[1]}; phone={row[2]};" \
+                f"ssn={row[3]}; password={row[4]}; " \
+                f"ip={row[5]}; last_login={row[6]}; user_agent={row[7]};"
+        logger.info(message)
+    cursor.close()
+    connection.close()
+
+
+if __name__ == '__main__':
+    main()
