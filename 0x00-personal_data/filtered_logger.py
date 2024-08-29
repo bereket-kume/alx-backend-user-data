@@ -3,6 +3,8 @@
 from typing import List
 import re
 import logging
+import os
+import mysql.connector
 
 
 class RedactingFormatter(logging.Formatter):
@@ -50,3 +52,14 @@ def get_logger() -> logging.Logger:
     streamHandler.setFormatter(formatter)
     logger.addHandler(streamHandler)
     return logger
+
+
+def get_db():
+    """connect to secure holberton database to read user"""
+    db_connect = mysql.connector.connect(
+        user=os.getenv("PERSONAL_DATA_DB_USERNAM", "root"),
+        password=os.getenv("PERSONAL_DATA_DB_PASSWORD", ""),
+        host=os.getenv("PERSONAL_DATA_DB_HOST", "localhost"),
+        database=os.getenv("PERSONAL_DATA_DB_NAME")
+    )
+    return db_connect
