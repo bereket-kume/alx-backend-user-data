@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Module for handling personal data"""
 from typing import List
+from mysql.connector import MySQLConnection
 import re
 import logging
 import os
@@ -54,7 +55,7 @@ def get_logger() -> logging.Logger:
     return logger
 
 
-def get_db():
+def get_db() -> MySQLConnection:
     """connect to secure holberton database to read user"""
     db_connect = mysql.connector.connect(
         user=os.getenv("PERSONAL_DATA_DB_USERNAM", "root"),
