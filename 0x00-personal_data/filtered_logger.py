@@ -67,6 +67,10 @@ def get_db() -> MySQLConnection:
 
 
 def main():
+    """
+    obtain connection with a database connection
+    using get_db method and retrieve all rows in the users
+    """
     connection = get_db()
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM users")
