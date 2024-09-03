@@ -4,6 +4,7 @@ Basic auth module
 """
 import base64
 from .auth import Auth
+from typing import Tuple
 
 
 class BasicAuth(Auth):
@@ -38,3 +39,16 @@ class BasicAuth(Auth):
             return val
         except Exception:
             return None
+
+    def extract_user_credentials(
+            self, decode_base64_authorization_header: str
+    ) -> Tuple:
+        """
+        extract user credentials from header
+        """
+        if decode_base64_authorization_header is None or\
+            not isinstance(decode_base64_authorization_header, str) or\
+                ":" not in decode_base64_authorization_header:
+            return (None, None)
+        email, password = decode_base64_authorization_header.split(':')
+        return (email, password)
