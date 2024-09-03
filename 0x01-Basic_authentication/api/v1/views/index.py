@@ -34,3 +34,13 @@ def unauthorized():
       unauthorized error
     """
     abort(401)
+
+
+@app_views.route('forbidden', methods=['GET'], strict_slaclashes=False)
+def forbidden():
+    """
+    GET /api/v1/forbidden
+    Return:
+      forbidden user
+    """
+    abort(403)
