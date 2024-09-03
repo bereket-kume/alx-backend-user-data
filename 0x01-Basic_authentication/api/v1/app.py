@@ -34,7 +34,7 @@ def forbidden(error):
     """
     forbidden user
     """
-    return jsonify({"error": "forbidden"})
+    return jsonify({"error": "forbidden"}), 403
 
 
 if __name__ == "__main__":
