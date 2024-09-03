@@ -3,14 +3,14 @@
 Auth module
 """
 from flask import request
-from typing import TypeVar
+from typing import TypeVar, List
 
 
 class Auth:
     """
     Auth Class
     """
-    def require_auth(self, path: str, excluded_paths: list[str]) -> bool:
+    def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """
         function used as auth
         """
