@@ -4,6 +4,7 @@ Session Auth module
 """
 from .auth import Auth
 import uuid
+from models.user import User
 
 
 class SessionAuth(Auth):
@@ -32,3 +33,13 @@ class SessionAuth(Auth):
             return None
 
         return self.user_id_by_session_id.get(session_id)
+
+    def current_user(self, request=None):
+        """
+        method to return current user depend on user id
+        """
+        session_id = self.session_cookie(request)
+        print(session_id)
+        user_id = self.user_id_for_session_id(session_id)
+        user = User.get(user_id)
+        return user
