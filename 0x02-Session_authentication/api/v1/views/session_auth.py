@@ -48,6 +48,9 @@ def session_login():
     strict_slashes=False
 )
 def session_logout():
+    """
+    method used for session logout
+    """
     auth = SessionAuth()
     if not auth.destroy_session(request):
         abort(404)
