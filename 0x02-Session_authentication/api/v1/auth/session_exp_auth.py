@@ -22,6 +22,7 @@ class SessionExpAuth(SessionAuth):
             duration = 0
         self.session_duration = duration
 
+
     def create_session(self, user_id: str = None) -> str:
         """
         function to create session
@@ -33,6 +34,7 @@ class SessionExpAuth(SessionAuth):
             "user_id": user_id,
             "created_at": datetime.now()
         }
+        print(session_info)
         self.user_id_by_session_id[session_id] = session_info
         return session_id
 
@@ -44,14 +46,13 @@ class SessionExpAuth(SessionAuth):
             return None
 
         session_info = self.user_id_by_session_id.get(session_id)
-        if "created_at" not in session_info:
-            return None
-        created_at = session_info["created_at"]
-        print(f"created at {created_at}")
+        created_at = session_info.get("created_at")
+        user_id = session_info.get("user_id")
 
+        print(f"created at {created_at}")
         if self.session_duration > 0:
             exp_time = created_at + timedelta(seconds=self.session_duration)
             if exp_time < datetime.now():
                 del self.user_id_by_session_id[session_id]
                 return None
-        return session_info["user_id"]
+        return user_id
