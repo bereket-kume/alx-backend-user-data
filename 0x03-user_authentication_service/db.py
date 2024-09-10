@@ -5,7 +5,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from sqlalchemy.exc import NoResultFound, InvalidRequestError
+from sqlalchemy.exc import InvalidRequestError, NoResultFound
 from user import Base, User
 from typing import Dict
 
@@ -50,8 +50,9 @@ class DB:
 
         try:
             user = session.query(User).filter_by(**kwargs).one()
-            return user
         except NoResultFound:
             raise NoResultFound()
         except InvalidRequestError:
             raise InvalidRequestError()
+
+        return user
