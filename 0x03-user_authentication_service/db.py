@@ -6,8 +6,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 from sqlalchemy.exc import NoResultFound, InvalidRequestError
-
 from user import Base, User
+from typing import Dict
 
 
 class DB:
@@ -42,7 +42,7 @@ class DB:
 
         return new_user
 
-    def find_user_by(self, **kwargs):
+    def find_user_by(self, **kwargs: Dict[str, str]) -> User:
         """
         function used to find user
         """
