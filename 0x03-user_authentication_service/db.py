@@ -46,7 +46,7 @@ class DB:
         """
         function used to find user
         """
-        session = self.__session
+        session = self._session
 
         try:
             user = session.query(User).filter_by(**kwargs).one()
