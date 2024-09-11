@@ -64,13 +64,9 @@ class DB:
         function to update password
         """
         session = self._session
-        try:
-            user = self.find_user_by(user_id)
-            for key, value in kwargs.items():
-                if hasattr(user, key):
-                    setattr(user, key, value)
-                else:
-                    raise ValueError()
-            session.commit()
-        except Exception:
-            return None
+        user = self.find_user_by(id=user_id)
+        for key, value in kwargs.items():
+            if not hasattr(User, key):
+                raise ValueError
+            setattr(user, key, value)
+        session.commit()
