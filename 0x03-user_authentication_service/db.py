@@ -7,7 +7,7 @@ from sqlalchemy.orm.session import Session
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import InvalidRequestError
 from user import Base, User
-from typing import Dict
+from typing import Mapping, Any
 
 
 class DB:
@@ -42,19 +42,19 @@ class DB:
 
         return new_user
 
-    def find_user_by(self, **kwargs: Dict[str, str]) -> User:
+    def find_user_by(self, **kwargs: Mapping[str, Any]) -> User:
         """
         function used to find user
+        Raises:
+            NoResultFound
+            InvalidRequestError
         """
         session = self._session
 
         try:
-            user = session.query(User).filter_by(**kwargs).first()
-            if user is None:
-                raise NoResultFound()
+            user = session.query(User).filter_by(**kwargs).one()
+            return user
         except NoResultFound:
             raise NoResultFound()
         except InvalidRequestError:
             raise InvalidRequestError()
-
-        return user
