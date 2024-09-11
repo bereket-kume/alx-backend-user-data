@@ -6,7 +6,7 @@ import bcrypt
 from typing import ByteString
 
 
-def _hash_password(password: str) -> ByteString:
+def _hash_password(password: str) -> bytes:
     """
     Hash password:
         return salted ofthe input password
