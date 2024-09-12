@@ -69,6 +69,17 @@ class Auth:
 
         return user
 
+    def destroy_session(self, user_id: int) -> None:
+        """
+        function to destory session
+        """
+        db = self._db
+        try:
+            user = db.find_user_by(user_id=user_id)
+        except NoResultFound:
+            return None
+        db.update_user(user.id, session_id=None)
+
 
 def _hash_password(password: str) -> bytes:
     """
