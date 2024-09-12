@@ -7,6 +7,7 @@ from typing import ByteString
 from db import DB
 from user import User
 from sqlalchemy.orm.exc import NoResultFound
+from uuid import uuid4
 
 
 class Auth:
@@ -50,3 +51,9 @@ def _hash_password(password: str) -> bytes:
     salt = bcrypt.gensalt()
     hash_pass = bcrypt.hashpw(password.encode(), salt)
     return hash_pass
+
+def _generate_uuid() -> str:
+    """
+    function to generate uuid
+    """
+    return str(uuid4())
